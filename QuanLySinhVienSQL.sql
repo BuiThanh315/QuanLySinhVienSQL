@@ -96,6 +96,7 @@ from Mark M inner join Student S on M.StudentID = S.StudentID
 order by M.Mark desc, S.StudentName asc;
 
 -- bài 4: Các hàm thông dụng trong SQL
+-- Thực hành
 select	Address, count(StudentID) as Student_count from Student
 group by Address;
 
@@ -112,3 +113,16 @@ select S.StudentID, S.StudentName, avg(Mark) as average_score
 from Student S inner join Mark M on S.StudentID = M.StudentID
 group by S.StudentID, S.StudentName
 having avg(Mark) >= all (select avg(Mark) from Mark group by Mark.StudentID);
+
+-- Bài tập
+select * from Subject
+having Credit >= all (select Credit from Subject group by Credit);
+
+select*from Subject Sj 
+inner join Mark M on Sj.SubID = M.SubID
+where M.Mark = (select max(Mark) from Mark);
+
+select S.StudentName, S.StudentID, S.Address, avg(Mark) as average_score from Student S
+inner join Mark M on S.StudentID = M.StudentID
+group by S.StudentID
+order by avg(Mark) desc;
